@@ -223,6 +223,17 @@ app.get('/api/students', (req, res) => {
   res.json(studentList);
 });
 
+const path = require('path');
+
+// Serve React frontend
+app.use(express.static(path.join(__dirname, '../client/build')));
+
+// Catch-all route to serve React index.html
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/build/index.html'));
+});
+
+
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
